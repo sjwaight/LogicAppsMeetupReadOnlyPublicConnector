@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: Meetup Read-only Public API
+  description: Represents Meetup's RESTful API public GET methods
+  version: 0.0.1
+servers:
+  - url: https://api.meetup.com/
+
+paths:
+  /status:
+    get:
+      description: Returns the current API Status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+                  title:
+                    type: string
+                example:
+                  message: ok
+                  
+  /{meetupgroup}:
+    get:
+      description: Returns details of the specified meetup group.
+      parameters:
+        - in: path
+          name: meetupgroup
+          schema:
+            type: string
+          required: true
+          description: Web URL for Meetup Group we want to query
+        - in: query
+          name: fields
+          schema:
+            type: string
+          required: false
+          description: A comma-delimited list of optional fields to append to the response
+      responses:
+        '200':    
+          description: A successful response will include a representation of the group as a JSON object
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  description:
+                    type: string
+                  group_photo:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      base_url:
+                        type: string
+                      highres_link:
+                        type: string
+                      photo_link:
+                        type: string
+                      thumb_link:
+                        type: string
+                      type:
+                        type: string
+                  key_photo:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      base_url:
+                        type: string
+                      highres_link:
+                        type: string
+                      photo_link:
+                        type: string
+                      thumb_link:
+                        type: string
+                      type:
+                        type: string
+                  approved:
+                    type: boolean
+                  category:
+                    type: object
+                  city:
+                    type: string 
+                  city_link:
+                    type: string
+                  contributions:
+                    type: object
+                  country:
+                    type: string
+                  created:
+                    type: integer
+                  is_simplehtml:
+                    type: boolean
+                  join_mode:
+                    type: string
+                  lat:
+                    type: integer
+                    description: Latitude
+                  lon:
+                    type: integer
+                    description: Longtitude
+                  localized_country_name:
+                    type: string
+                  localized_location:
+                    type: string
+                  members:
+                    type: integer
+                    description: Number of members of the Group
+                  name:
+                    type: string 
+                    description: Name of the Group (if it has one)
+                  plaintext_description:
+                    type: string
+                  short_link:
+                    type: string
+                  url_Name:
+                    type: string
+                  timezone:
+                    type: string
+                  category:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      shortname:
+                        type: string
+                      sort_name:
+                        type: string
+                  next_event:
+                    type: object
+                    properties:
+                      id: 
+                        type: integer
+                      name:
+                        type: string
+                      yes_rsvp_count:
+                        type: integer
+                      time:
+                        type: integer
+                      utc_offset:
+                        type: integer
+
+
+                  
+
+                  
