@@ -1,0 +1,200 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a simplified respresentation of Meetup's published API which you can find out more about [https://www.meetup.com/meetup_api/](https://www.meetup.com/meetup_api/). This Open API specificaton is not published or maintained by Meetup.",
+    "version": "0.0.1",
+    "title": "Meetup Public Read-only API"
+  },
+  "host": "api.meetup.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/{meetup-group}": {
+      "get": {
+        "summary": "Retrieve Meetup Group by URL name",
+        "operationId": "getMeetupGroup",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "meetup-group",
+            "in": "path",
+            "description": "URL name of Meetup Group. i.e. Azure-Sydney-User-Group",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MeetupGroup"
+            }
+          },
+          "404": {
+            "description": "Meetup not found"
+          }
+        }
+      }
+    },
+    "/status": {
+      "get": {
+        "summary": "Retrieve the status of the Meetup API",
+        "operationId": "getAPIStatus",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/APIStatus"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "APIStatus": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "Photo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "base_url": {
+          "type": "string"
+        },
+        "highres_link": {
+          "type": "string"
+        },
+        "photo_link": {
+          "type": "string"
+        },
+        "thumb_link": {
+          "type": "string"
+        }
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "shortname": {
+          "type": "string"
+        },
+        "sort_name": {
+          "type": "string"
+        }
+      }
+    },
+    "MeetupGroup": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "description": {
+          "type": "string"
+        },
+        "group_photo": {
+          "$ref": "#/definitions/Photo"
+        },
+        "key_photo": {
+          "$ref": "#/definitions/Photo"
+        },
+        "approved": {
+          "type": "boolean"
+        },
+        "category": {
+          "$ref": "#/definitions/Category"
+        },
+        "city": {
+          "type": "string"
+        },
+        "city_link": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "created": {
+          "type": "integer"
+        },
+        "is_simplehtml": {
+          "type": "boolean"
+        },
+        "join_mode": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "integer",
+          "description": "Latitude"
+        },
+        "lon": {
+          "type": "integer",
+          "description": "Longtitude"
+        },
+        "localized_country_name": {
+          "type": "string"
+        },
+        "localized_location": {
+          "type": "string"
+        },
+        "members": {
+          "type": "integer",
+          "description": "Number of members of the Group"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the Group (if it has one)"
+        },
+        "plaintext_description": {
+          "type": "string"
+        },
+        "short_link": {
+          "type": "string"
+        },
+        "url_Name": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about the Meetup API",
+    "url": "https://www.meetup.com/meetup_api/"
+  }
+}

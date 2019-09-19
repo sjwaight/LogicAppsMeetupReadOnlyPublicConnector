@@ -1,0 +1,163 @@
+swagger: "2.0"
+info:
+  description: "This is a simplified respresentation of Meetup's published API which you can find out more about [https://www.meetup.com/meetup_api/](https://www.meetup.com/meetup_api/). This Open API specificaton is not published or maintained by Meetup."
+  version: "0.0.1"
+  title: "Meetup Public Read-only API"
+host: "api.meetup.com"
+basePath: "/"
+schemes:
+- "https"
+paths:
+  /{meetup-group}:
+    get:
+      summary: "Retrieve Meetup Group by URL name"
+      operationId: "GetMeetupGroup"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "meetup-group"
+        in: "path"
+        description: "URL name of Meetup Group. i.e. Azure-Sydney-User-Group"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+              $ref: "#/definitions/MeetupGroup"
+        404:
+          description: "Meetup not found"
+  /status:
+    get:
+      summary: "Retrieve the status of the Meetup API"
+      operationId: "GetAPIStatus"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+              $ref: "#/definitions/APIStatus"
+definitions:
+  APIStatus:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+      status:
+        type: "string"
+      title:
+        type: "string"
+  Photo:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "Numeric photo ID"
+      base_url:
+        type: "string"
+        description: "A base url that can be use to construct a photo url from its components"
+      highres_link:
+        type: "string"
+        description: "Link for full sized photo"
+      photo_link:
+        type: "string"
+        description: "Link for standard sized photo"
+      thumb_link:
+        type: "string"
+        description: "Link for thumbnail sized photo"
+      type:
+        type: string
+        description: "Type of photo. One of 'event' or 'member'"
+  Category:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "Numeric category id"
+      name:
+        type: "string"
+        description: "Display name of the category"
+      shortname:
+        type: "string"
+        description: "String identifier of the category"
+      sort_name:
+        type: "string"
+        description: "Name used for sorting"
+  MeetupGroup:
+    type: "object"
+    required:
+    - "name"
+    - "photoUrls"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "Numeric Group ID"
+      description:
+        type: "string"
+        description: "Short description of group"
+      group_photo:
+        $ref: "#/definitions/Photo"
+        description: "Group photo"
+      key_photo:
+        $ref: "#/definitions/Photo"
+        description: "Group primary photo"
+      approved:
+        type: "boolean"
+      category:
+        $ref: "#/definitions/Category"
+        description: "The primary category of the group, if the group has one"
+      city:
+        type: "string"
+        description: "City of the group"
+      country:
+        type: "string"
+        description: "Country of the group"
+      created:
+        type: "integer"
+        description: "Time the group was created in milliseconds since the epoch"
+      is_simplehtml:
+        type: "boolean"
+        description: "'true' when the group description has been saved in a simplified HTML format, 'false' otherwise."
+      join_mode:
+        type: "string"
+        description: "Who can join this group and how. One of 'approval', 'closed', or 'open'"
+      lat:
+        type: "integer"
+        description: "Latitude"
+      lon:
+        type: "integer"
+        description: "Longtitude"
+      localized_country_name:
+        type: "string"
+        description: "Name of country of the group"
+      localized_location:
+        type: "string"
+        description: "City/State or City/Country of the group"
+      members:
+        type: "integer"
+        description: "Number of members of the Group"
+      name:
+        type: "string" 
+        description: "Name of the Group (if it has one)"
+      plaintext_description:
+        type: "string"
+        description: "Description of the group, in plain text format."
+      plain_text_no_images_description:
+        type: "string"
+        description: "Description of the group, in plain text format with no images."
+      short_link:
+        type: "string"
+        description: "A shorted URL for the group"
+      url_Name:
+        type: "string"
+        description: "Used to identify the group on meetup.com"
+      timezone:
+        type: "string"
+        description: "This represents the universal timezone identifier for the group"
+externalDocs:
+  description: "Find out more about the Meetup API"
+  url: "https://www.meetup.com/meetup_api/"
