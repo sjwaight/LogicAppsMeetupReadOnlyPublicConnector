@@ -50,7 +50,7 @@
     "/{meetup-group}/events": {
       "get": {
         "summary": "Retrieve Meetup Group Events List",
-        "operationId": "GetMeetupGroupEventsList",
+        "operationId": "GetMeetupGroupEventList",
         "produces": [
           "application/json"
         ],
@@ -302,6 +302,10 @@
           "type": "integer",
           "format": "int32",
           "description": "Number of past events that happened before and including this event."
+        },
+        "next_event": {
+          "type": "object",
+          "$ref": "#/definitions/MeetupEvent"
         },
         "plain_text_description": {
           "type": "string",
