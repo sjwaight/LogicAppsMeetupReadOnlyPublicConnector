@@ -27,6 +27,55 @@ paths:
               $ref: "#/definitions/MeetupGroup"
         404:
           description: "Meetup not found"
+  /{meetup-group}/events:
+    get:
+      summary: "Retrieve Meetup Group Events List"
+      operationId: "GetMeetupGroupEvents"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "meetup-group"
+        in: "path"
+        description: "URL name of Meetup Group. i.e. Azure-Sydney-User-Group"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+              $ref: "#/definitions/MeetupGroup"
+        404:
+          description: "Meetup not found"
+
+  /{meetup-group}/events/{eventid}:
+    get:
+      summary: "Retrieve Meetup Group Event Details"
+      operationId: "GetMeetupGroupEvents"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "meetup-group"
+        in: "path"
+        description: "URL name of Meetup Group. i.e. Azure-Sydney-User-Group"
+        required: true
+        type: "string"
+      - name: "eventid"
+        in: "path"
+        description: "Alphanumeric identifier for a single Meetup Group Event. i.e. '258375479'"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+              $ref: "#/definitions/MeetupEvent"
+        403:
+          description: "Meetup Event not available via unauthorised call"
+        404:
+          description: "Meetup Event not found"
+        410:
+          description: "Meetup Event has been deleted"
+  
   /status:
     get:
       summary: "Retrieve the status of the Meetup API"
@@ -86,6 +135,66 @@ definitions:
       sort_name:
         type: "string"
         description: "Name used for sorting"
+  MeetupEvent:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "A unique alphanumeric identifier for event"
+      name:
+        type: "string"
+        description: "Name of the event"
+      link:
+        type: "string"
+        description: "Link to event on meetup.com"
+      duration:
+        type: "integer"
+        format: "int32"
+        description: "Scheduled event duration in milliseconds, if an end time is specified by the organiser."
+      description:
+        type: "string"
+        description: "Description of the event in HTML. Email addresses and phone numbers will be masked."
+      local_date:
+        type: "string"
+        description: "The local date of the Meetup in ISO 8601 format"
+      local_time:
+        type: "string"
+        description: "The local time of the Meetup in ISO 8601 format"
+      manual_attendance_count:
+        type: "integer"
+        description: "Manually entered total attendee headcount, if any exists"
+      past_event_count_inclusive:
+        type: "integer"
+        format: "int32"
+        description: "Number of past events that happened before and including this event."
+      plain_text_description:
+        type: "string"
+        description: "Plain text version of the event description. Email addresses and photo numbers will be masked."
+      plain_text_no_images_description:
+        type: "string"
+        description: "Plain text version of the event description without images. Email addresses and photo numbers will be masked."
+      short_link:
+        type: "string"
+        description: "A shortened link for the event on meetup.com"
+      status:
+        type: "string"
+        description: "'cancelled', 'upcoming', 'past', 'proposed', 'suggested' or 'draft'"
+      time:
+        type: "integer"
+        format: "int64"
+        description: "UTC start time of the event, in milliseconds since the epoch"
+      utc_offset:
+        type: "integer"
+        format: "int64"
+        description: "he local offset from UTC time, in milliseconds"
+      waitlist_count:
+        type: "integer"
+        format: "int32"
+        description: "Number of members on the waitlist, if one exists"
+      yes_rsvp_count:
+        type: "integer"
+        format: "int32"
+        description: "Number of yes RSVPs including guests"
   MeetupGroup:
     type: "object"
     required:
