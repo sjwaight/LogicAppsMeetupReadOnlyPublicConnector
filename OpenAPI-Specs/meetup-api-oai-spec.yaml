@@ -43,7 +43,9 @@ paths:
         200:
           description: "successful operation"
           schema:
-              $ref: "#/definitions/MeetupGroup"
+            type: "array"
+            items:
+              $ref: "#/definitions/MeetupEvent"
         404:
           description: "Meetup not found"
 
