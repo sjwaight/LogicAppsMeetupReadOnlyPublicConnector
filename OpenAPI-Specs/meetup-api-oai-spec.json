@@ -25,6 +25,13 @@
             "description": "URL name of Meetup Group. i.e. Azure-Sydney-User-Group",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Comma-delimited list of optional field names to append to the response",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {
@@ -43,7 +50,7 @@
     "/{meetup-group}/events": {
       "get": {
         "summary": "Retrieve Meetup Group Events List",
-        "operationId": "GetMeetupGroupEvents",
+        "operationId": "GetMeetupGroupEventsList",
         "produces": [
           "application/json"
         ],
@@ -54,6 +61,55 @@
             "description": "URL name of Meetup Group. i.e. Azure-Sydney-User-Group",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Comma-delimited list of optional field names to append to the response",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "desc",
+            "in": "query",
+            "description": "When true, sorts results in descending order. Defaults to false",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "has_ended",
+            "in": "query",
+            "description": "Returns events which have ended when true. When false, returns events which are ongoing or upcoming.",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "no_earlier_than",
+            "in": "query",
+            "description": "An optional timestamp that represents a lower time bound (inclusive) for the start time of events in the local time of the group. If provided, it must be a string in ISO 8601 format without a time zone specified, i.e. 2018-06-01T00:00:00.000",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "no_later_than",
+            "in": "query",
+            "description": "An optional timestamp that represents an upper time bound (exclusive) for the start time of events in the local time of the group. If provided, it must be a string in ISO 8601 format without a time zone specified, i.e. 2018-06-01T00:00:00.000",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number of results to return in a page. Must be an integer greater than or equal to 1. Defaults to 200",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "A comma-delimited list of event statuses. Valid values are: 'cancelled', 'draft', 'past', 'proposed', 'suggested', or 'upcoming'",
+            "required": false,
+            "type": "integer"
           }
         ],
         "responses": {
@@ -75,7 +131,7 @@
     "/{meetup-group}/events/{eventid}": {
       "get": {
         "summary": "Retrieve Meetup Group Event Details",
-        "operationId": "GetMeetupGroupEvents",
+        "operationId": "GetMeetupGroupEvent",
         "produces": [
           "application/json"
         ],
@@ -92,6 +148,13 @@
             "in": "path",
             "description": "Alphanumeric identifier for a single Meetup Group Event. i.e. '258375479'",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Comma-delimited list of optional field names to append to the response",
+            "required": false,
             "type": "string"
           }
         ],
@@ -295,19 +358,16 @@
           "description": "Short description of group"
         },
         "group_photo": {
-          "$ref": "#/definitions/Photo",
-          "description": "Group photo"
+          "$ref": "#/definitions/Photo"
         },
         "key_photo": {
-          "$ref": "#/definitions/Photo",
-          "description": "Group primary photo"
+          "$ref": "#/definitions/Photo"
         },
         "approved": {
           "type": "boolean"
         },
         "category": {
-          "$ref": "#/definitions/Category",
-          "description": "The primary category of the group, if the group has one"
+          "$ref": "#/definitions/Category"
         },
         "city": {
           "type": "string",
