@@ -1,0 +1,517 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a simplified respresentation of Meetup's published API which you can find out more about at https://www.meetup.com/meetup_api. The connector is not built or maintained by Meetup.",
+    "version": "3.0.0",
+    "title": "Meetup Public Read-only API"
+  },
+  "host": "api.meetup.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/{meetup-group}": {
+      "get": {
+        "summary": "Retrieve Meetup Group by URL name",
+        "operationId": "GetMeetupGroup",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "meetup-group",
+            "in": "path",
+            "description": "URL name of Meetup Group. i.e. Azure-Sydney-User-Group",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Comma-delimited list of optional field names to append to the response",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MeetupGroup"
+            }
+          },
+          "404": {
+            "description": "Meetup not found"
+          }
+        },
+        "description": "Retrieve Meetup Group by URL name"
+      }
+    },
+    "/{meetup-group}/events": {
+      "get": {
+        "summary": "Retrieve Meetup Group Events List",
+        "operationId": "GetMeetupGroupEventList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "meetup-group",
+            "in": "path",
+            "description": "URL name of Meetup Group. i.e. Azure-Sydney-User-Group",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Comma-delimited list of optional field names to append to the response",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "desc",
+            "in": "query",
+            "description": "When true, sorts results in descending order. Defaults to false",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "has_ended",
+            "in": "query",
+            "description": "Returns events which have ended when true. When false, returns events which are ongoing or upcoming.",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "no_earlier_than",
+            "in": "query",
+            "description": "An optional timestamp that represents a lower time bound (inclusive) for the start time of events in the local time of the group. If provided, it must be a string in ISO 8601 format without a time zone specified, i.e. 2018-06-01T00:00:00.000",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "no_later_than",
+            "in": "query",
+            "description": "An optional timestamp that represents an upper time bound (exclusive) for the start time of events in the local time of the group. If provided, it must be a string in ISO 8601 format without a time zone specified, i.e. 2018-06-01T00:00:00.000",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number of results to return in a page. Must be an integer greater than or equal to 1. Defaults to 200",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "A comma-delimited list of event statuses. Valid values are: 'cancelled', 'draft', 'past', 'proposed', 'suggested', or 'upcoming'",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MeetupEvent"
+              }
+            }
+          },
+          "404": {
+            "description": "Meetup not found"
+          }
+        },
+        "description": "Retrieve Meetup Group Events List"
+      }
+    },
+    "/{meetup-group}/events/{eventid}": {
+      "get": {
+        "summary": "Retrieve Meetup Group Event Details",
+        "operationId": "GetMeetupGroupEvent",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "meetup-group",
+            "in": "path",
+            "description": "URL name of Meetup Group. i.e. Azure-Sydney-User-Group",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "eventid",
+            "in": "path",
+            "description": "Alphanumeric identifier for a single Meetup Group Event. i.e. '258375479'",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Comma-delimited list of optional field names to append to the response",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MeetupEvent"
+            }
+          },
+          "403": {
+            "description": "Meetup Event not available via unauthorised call"
+          },
+          "404": {
+            "description": "Meetup Event not found"
+          },
+          "410": {
+            "description": "Meetup Event has been deleted"
+          }
+        },
+        "description": "Retrieve Meetup Group Event Details"
+      }
+    },
+    "/status": {
+      "get": {
+        "summary": "Retrieve the status of the Meetup API",
+        "operationId": "GetAPIStatus",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/APIStatus"
+            }
+          }
+        },
+        "description": "Retrieve the status of the Meetup API"
+      }
+    }
+  },
+  "definitions": {
+    "APIStatus": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "Photo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Numeric photo ID",
+          "title": "Group Photo ID"
+        },
+        "base_url": {
+          "type": "string",
+          "description": "A base url that can be use to construct a photo url from its components",
+          "title": "Group Photo Base URL"
+        },
+        "highres_link": {
+          "type": "string",
+          "description": "Link for full sized photo",
+          "title": "Group Photo Highres Link"
+        },
+        "photo_link": {
+          "type": "string",
+          "description": "Link for standard sized photo",
+          "title": "Group Photo (Standard Size)"
+        },
+        "thumb_link": {
+          "type": "string",
+          "description": "Link for thumbnail sized photo",
+          "title": "Group Photo (Thumbnail Link)"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of photo. One of 'event' or 'member'",
+          "title": "Group Photo Type"
+        }
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Numeric category id",
+          "title": "Category ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the category",
+          "title": "Category Name"
+        },
+        "shortname": {
+          "type": "string",
+          "description": "String identifier of the category",
+          "title": "Category Short Name"
+        },
+        "sort_name": {
+          "type": "string",
+          "description": "Name used for sorting",
+          "title": "Category Sort Name"
+        }
+      }
+    },
+    "MeetupEvent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique alphanumeric identifier for event",
+          "title": "Next Event ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the event",
+          "title": "Next Event Name"
+        },
+        "link": {
+          "type": "string",
+          "description": "Link to event on meetup.com",
+          "title": "Next Event Link"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Scheduled event duration in milliseconds, if an end time is specified by the organiser.",
+          "title": "Next Event Duration (ms)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the event in HTML. Email addresses and phone numbers will be masked.",
+          "title": "Next Event Description"
+        },
+        "local_date": {
+          "type": "string",
+          "description": "The local date of the Meetup in ISO 8601 format",
+          "title": "Next Event Local Date"
+        },
+        "local_time": {
+          "type": "string",
+          "description": "The local time of the Meetup in ISO 8601 format",
+          "title": "Next Event Local Time"
+        },
+        "manual_attendance_count": {
+          "type": "integer",
+          "description": "Manually entered total attendee headcount, if any exists",
+          "title": "Next Event Manual Attendance Count"
+        },
+        "past_event_count_inclusive": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of past events that happened before and including this event.",
+          "title": "Next Event Past Event Count"
+        },
+        "plain_text_description": {
+          "type": "string",
+          "description": "Plain text version of the event description. Email addresses and photo numbers will be masked.",
+          "title": "Next Event Plain Text Description"
+        },
+        "plain_text_no_images_description": {
+          "type": "string",
+          "description": "Plain text version of the event description without images. Email addresses and photo numbers will be masked.",
+          "title": "Next Event Description (Plaintext, no images)"
+        },
+        "short_link": {
+          "type": "string",
+          "description": "A shortened link for the event on meetup.com",
+          "title": "Next Event Short Link"
+        },
+        "status": {
+          "type": "string",
+          "description": "'cancelled', 'upcoming', 'past', 'proposed', 'suggested' or 'draft'",
+          "title": "Next Event Status"
+        },
+        "time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "UTC start time of the event, in milliseconds since the epoch",
+          "title": "Next Event Time"
+        },
+        "utc_offset": {
+          "type": "integer",
+          "format": "int64",
+          "description": "he local offset from UTC time, in milliseconds",
+          "title": "Next Event UTC Offset"
+        },
+        "waitlist_count": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of members on the waitlist, if one exists",
+          "title": "Next Event Waitlist Count"
+        },
+        "yes_rsvp_count": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of yes RSVPs including guests",
+          "title": "Next Event RSVP Count",
+          "x-ms-visibility": "important"
+        }
+      }
+    },
+    "MeetupGroup": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Numeric Group ID",
+          "title": "Group ID"
+        },
+        "description": {
+          "type": "string",
+          "description": "Short description of group",
+          "title": "Short Description"
+        },
+        "group_photo": {
+          "$ref": "#/definitions/Photo"
+        },
+        "key_photo": {
+          "$ref": "#/definitions/Photo"
+        },
+        "approved": {
+          "type": "boolean",
+          "description": "Group has been approved",
+          "title": "Approved",
+          "enum": [
+            "",
+            "true",
+            "false"
+          ]
+        },
+        "category": {
+          "$ref": "#/definitions/Category"
+        },
+        "city": {
+          "type": "string",
+          "description": "City of the group",
+          "title": "City"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country of the group",
+          "title": "Country"
+        },
+        "created": {
+          "type": "integer",
+          "description": "Time the group was created in milliseconds since the epoch",
+          "title": "Group Create Date (Ticks)"
+        },
+        "is_simplehtml": {
+          "type": "boolean",
+          "description": "'true' when the group description has been saved in a simplified HTML format, 'false' otherwise.",
+          "title": "Group Description Is Simplified HTML",
+          "enum": [
+            "",
+            "true",
+            "false"
+          ]
+        },
+        "join_mode": {
+          "type": "string",
+          "description": "Who can join this group and how. One of 'approval', 'closed', or 'open'",
+          "title": "Group Join Mode"
+        },
+        "lat": {
+          "type": "integer",
+          "description": "Latitude",
+          "title": "Group Latitude"
+        },
+        "lon": {
+          "type": "integer",
+          "description": "Longtitude",
+          "title": "Group Longtitude"
+        },
+        "localized_country_name": {
+          "type": "string",
+          "description": "Name of country of the group",
+          "title": "Group Country Name (localised)"
+        },
+        "localized_location": {
+          "type": "string",
+          "description": "City/State or City/Country of the group",
+          "title": "Group Location (localised)"
+        },
+        "members": {
+          "type": "integer",
+          "description": "Number of members of the Group",
+          "title": "Group Member Count",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the Group (if it has one)",
+          "title": "Group Name"
+        },
+        "plaintext_description": {
+          "type": "string",
+          "description": "Description of the group, in plain text format.",
+          "title": "Group Description (Plaintext, Image Links)"
+        },
+        "plain_text_no_images_description": {
+          "type": "string",
+          "description": "Description of the group, in plain text format with no images.",
+          "title": "Group Description (Plaintext, No Images)"
+        },
+        "short_link": {
+          "type": "string",
+          "description": "A shorted URL for the group",
+          "title": "Group Web Shortlink"
+        },
+        "url_Name": {
+          "type": "string",
+          "description": "Used to identify the group on meetup.com",
+          "title": "Group URL"
+        },
+        "timezone": {
+          "type": "string",
+          "description": "This represents the universal timezone identifier for the group",
+          "title": "Group Timezone"
+        },
+        "next_event": {
+          "type": "object",
+          "$ref": "#/definitions/MeetupEvent"
+        }
+      }
+    }
+  },
+  "parameters": {},
+  "responses": {},
+  "securityDefinitions": {},
+  "security": [],
+  "tags": [],
+  "externalDocs": {
+    "description": "Find out more about the Meetup API",
+    "url": "https://www.meetup.com/meetup_api/"
+  }
+}
