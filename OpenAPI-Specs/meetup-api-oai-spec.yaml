@@ -32,6 +32,8 @@ paths:
               $ref: "#/definitions/MeetupGroup"
         404:
           description: "Meetup not found"
+        410:
+          description: "Meetup Group has been deleted"
   /{meetup-group}/events:
     get:
       summary: "Retrieve Meetup Group Events List"
