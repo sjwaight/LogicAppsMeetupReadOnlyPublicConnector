@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "This is a simplified respresentation of Meetup's published API which you can find out more about at https://www.meetup.com/meetup_api. The connector is not built or maintained by Meetup.",
-    "version": "3.0.0",
+    "description": "This is a simplified respresentation of Meetup's published API which you can find out more about https://www.meetup.com/meetup_api/. This Open API specificaton is not published or maintained by Meetup.",
+    "version": "0.0.1",
     "title": "Meetup Public Read-only API"
   },
   "host": "api.meetup.com",
@@ -222,176 +222,174 @@
         "id": {
           "type": "integer",
           "format": "int32",
-          "description": "Numeric photo ID",
-          "title": "Group Photo ID"
+          "description": "Numeric photo ID"
         },
         "base_url": {
           "type": "string",
-          "description": "A base url that can be use to construct a photo url from its components",
-          "title": "Group Photo Base URL"
+          "description": "A base url that can be use to construct a photo url from its components"
         },
         "highres_link": {
           "type": "string",
-          "description": "Link for full sized photo",
-          "title": "Group Photo Highres Link"
+          "description": "Link for full sized photo"
         },
         "photo_link": {
           "type": "string",
-          "description": "Link for standard sized photo",
-          "title": "Group Photo (Standard Size)"
+          "description": "Link for standard sized photo"
         },
         "thumb_link": {
           "type": "string",
-          "description": "Link for thumbnail sized photo",
-          "title": "Group Photo (Thumbnail Link)"
+          "description": "Link for thumbnail sized photo"
         },
         "type": {
           "type": "string",
-          "description": "Type of photo. One of 'event' or 'member'",
-          "title": "Group Photo Type"
+          "description": "Type of photo. One of 'event' or 'member'"
         }
       }
     },
     "Category": {
       "type": "object",
+      "required": [
+        "id"
+      ],
       "properties": {
         "id": {
           "type": "integer",
           "format": "int32",
-          "description": "Numeric category id",
-          "title": "Category ID"
+          "description": "Numeric category id"
         },
         "name": {
           "type": "string",
-          "description": "Display name of the category",
-          "title": "Category Name"
+          "description": "Display name of the category"
         },
         "shortname": {
           "type": "string",
-          "description": "String identifier of the category",
-          "title": "Category Short Name"
+          "description": "String identifier of the category"
         },
         "sort_name": {
           "type": "string",
-          "description": "Name used for sorting",
-          "title": "Category Sort Name"
+          "description": "Name used for sorting"
         }
       }
     },
     "MeetupEvent": {
       "type": "object",
+      "required": [
+        "id"
+      ],
       "properties": {
         "id": {
           "type": "string",
-          "description": "A unique alphanumeric identifier for event",
-          "title": "Next Event ID"
+          "description": "A unique alphanumeric identifier for event"
         },
         "name": {
           "type": "string",
-          "description": "Name of the event",
-          "title": "Next Event Name"
+          "description": "Name of the event"
         },
         "link": {
           "type": "string",
-          "description": "Link to event on meetup.com",
-          "title": "Next Event Link"
+          "description": "Link to event on meetup.com"
         },
         "duration": {
           "type": "integer",
           "format": "int32",
-          "description": "Scheduled event duration in milliseconds, if an end time is specified by the organiser.",
-          "title": "Next Event Duration (ms)"
+          "description": "Scheduled event duration in milliseconds, if an end time is specified by the organiser."
         },
         "description": {
           "type": "string",
-          "description": "Description of the event in HTML. Email addresses and phone numbers will be masked.",
-          "title": "Next Event Description"
+          "description": "Description of the event in HTML. Email addresses and phone numbers will be masked."
         },
         "local_date": {
           "type": "string",
-          "description": "The local date of the Meetup in ISO 8601 format",
-          "title": "Next Event Local Date"
+          "description": "The local date of the Meetup in ISO 8601 format"
         },
         "local_time": {
           "type": "string",
-          "description": "The local time of the Meetup in ISO 8601 format",
-          "title": "Next Event Local Time"
+          "description": "The local time of the Meetup in ISO 8601 format"
         },
         "manual_attendance_count": {
           "type": "integer",
-          "description": "Manually entered total attendee headcount, if any exists",
-          "title": "Next Event Manual Attendance Count"
+          "description": "Manually entered total attendee headcount, if any exists"
         },
         "past_event_count_inclusive": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of past events that happened before and including this event.",
-          "title": "Next Event Past Event Count"
+          "description": "Number of past events that happened before and including this event."
         },
         "plain_text_description": {
           "type": "string",
-          "description": "Plain text version of the event description. Email addresses and photo numbers will be masked.",
-          "title": "Next Event Plain Text Description"
+          "description": "Plain text version of the event description. Email addresses and photo numbers will be masked."
         },
         "plain_text_no_images_description": {
           "type": "string",
-          "description": "Plain text version of the event description without images. Email addresses and photo numbers will be masked.",
-          "title": "Next Event Description (Plaintext, no images)"
+          "description": "Plain text version of the event description without images. Email addresses and photo numbers will be masked."
         },
         "short_link": {
           "type": "string",
-          "description": "A shortened link for the event on meetup.com",
-          "title": "Next Event Short Link"
+          "description": "A shortened link for the event on meetup.com"
         },
         "status": {
           "type": "string",
-          "description": "'cancelled', 'upcoming', 'past', 'proposed', 'suggested' or 'draft'",
-          "title": "Next Event Status"
+          "description": "'cancelled', 'upcoming', 'past', 'proposed', 'suggested' or 'draft'"
         },
         "time": {
           "type": "integer",
           "format": "int64",
-          "description": "UTC start time of the event, in milliseconds since the epoch",
-          "title": "Next Event Time"
+          "description": "UTC start time of the event, in milliseconds since the epoch"
         },
         "utc_offset": {
           "type": "integer",
           "format": "int64",
-          "description": "he local offset from UTC time, in milliseconds",
-          "title": "Next Event UTC Offset"
+          "description": "he local offset from UTC time, in milliseconds"
+        },
+        "venue": {
+          "$ref": "#/definitions/MeetupVenue"
         },
         "waitlist_count": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of members on the waitlist, if one exists",
-          "title": "Next Event Waitlist Count"
+          "description": "Number of members on the waitlist, if one exists"
         },
         "yes_rsvp_count": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of yes RSVPs including guests",
-          "title": "Next Event RSVP Count",
-          "x-ms-visibility": "important"
+          "description": "Number of yes RSVPs including guests"
+        }
+      }
+    },
+    "MeetupVenue": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Numeric Venue ID",
+          "title": "Numeric Venue ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Venue name",
+          "title": "Venue name"
         }
       }
     },
     "MeetupGroup": {
       "type": "object",
       "required": [
-        "name",
-        "photoUrls"
+        "id",
+        "name"
       ],
       "properties": {
         "id": {
           "type": "integer",
           "format": "int32",
-          "description": "Numeric Group ID",
-          "title": "Group ID"
+          "description": "Numeric Group ID"
         },
         "description": {
           "type": "string",
-          "description": "Short description of group",
-          "title": "Short Description"
+          "description": "Short description of group"
         },
         "group_photo": {
           "$ref": "#/definitions/Photo"
@@ -400,103 +398,74 @@
           "$ref": "#/definitions/Photo"
         },
         "approved": {
-          "type": "boolean",
-          "description": "Group has been approved",
-          "title": "Approved",
-          "enum": [
-            "",
-            "true",
-            "false"
-          ]
+          "type": "boolean"
         },
         "category": {
           "$ref": "#/definitions/Category"
         },
         "city": {
           "type": "string",
-          "description": "City of the group",
-          "title": "City"
+          "description": "City of the group"
         },
         "country": {
           "type": "string",
-          "description": "Country of the group",
-          "title": "Country"
+          "description": "Country of the group"
         },
         "created": {
           "type": "integer",
-          "description": "Time the group was created in milliseconds since the epoch",
-          "title": "Group Create Date (Ticks)"
+          "description": "Time the group was created in milliseconds since the epoch"
         },
         "is_simplehtml": {
           "type": "boolean",
-          "description": "'true' when the group description has been saved in a simplified HTML format, 'false' otherwise.",
-          "title": "Group Description Is Simplified HTML",
-          "enum": [
-            "",
-            "true",
-            "false"
-          ]
+          "description": "'true' when the group description has been saved in a simplified HTML format, 'false' otherwise."
         },
         "join_mode": {
           "type": "string",
-          "description": "Who can join this group and how. One of 'approval', 'closed', or 'open'",
-          "title": "Group Join Mode"
+          "description": "Who can join this group and how. One of 'approval', 'closed', or 'open'"
         },
         "lat": {
           "type": "integer",
-          "description": "Latitude",
-          "title": "Group Latitude"
+          "description": "Latitude"
         },
         "lon": {
           "type": "integer",
-          "description": "Longtitude",
-          "title": "Group Longtitude"
+          "description": "Longtitude"
         },
         "localized_country_name": {
           "type": "string",
-          "description": "Name of country of the group",
-          "title": "Group Country Name (localised)"
+          "description": "Name of country of the group"
         },
         "localized_location": {
           "type": "string",
-          "description": "City/State or City/Country of the group",
-          "title": "Group Location (localised)"
+          "description": "City/State or City/Country of the group"
         },
         "members": {
           "type": "integer",
-          "description": "Number of members of the Group",
-          "title": "Group Member Count",
-          "format": "int32"
+          "description": "Number of members of the Group"
         },
         "name": {
           "type": "string",
-          "description": "Name of the Group (if it has one)",
-          "title": "Group Name"
+          "description": "Name of the Group (if it has one)"
         },
         "plaintext_description": {
           "type": "string",
-          "description": "Description of the group, in plain text format.",
-          "title": "Group Description (Plaintext, Image Links)"
+          "description": "Description of the group, in plain text format."
         },
         "plain_text_no_images_description": {
           "type": "string",
-          "description": "Description of the group, in plain text format with no images.",
-          "title": "Group Description (Plaintext, No Images)"
+          "description": "Description of the group, in plain text format with no images."
         },
         "short_link": {
           "type": "string",
-          "description": "A shorted URL for the group",
-          "title": "Group Web Shortlink"
+          "description": "A shorted URL for the group"
         },
         "url_Name": {
           "type": "string",
-          "description": "Used to identify the group on meetup.com",
-          "title": "Group URL"
+          "description": "Used to identify the group on meetup.com"
         },
         "timezone": {
           "type": "string",
-          "description": "This represents the universal timezone identifier for the group",
-          "title": "Group Timezone"
+          "description": "This represents the universal timezone identifier for the group"
         },
         "next_event": {
           "type": "object",

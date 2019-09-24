@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: "This is a simplified respresentation of Meetup's published API which you can find out more about [https://www.meetup.com/meetup_api/](https://www.meetup.com/meetup_api/). This Open API specificaton is not published or maintained by Meetup."
-  version: "0.0.1"
+  version: "3.0.1"
   title: "Meetup Public Read-only API"
 host: "api.meetup.com"
 basePath: "/"
@@ -167,6 +167,8 @@ definitions:
         description: "Type of photo. One of 'event' or 'member'"
   Category:
     type: "object"
+    required:
+    - "id"
     properties:
       id:
         type: "integer"
@@ -183,6 +185,8 @@ definitions:
         description: "Name used for sorting"
   MeetupEvent:
     type: "object"
+    required:
+    - "id"
     properties:
       id:
         type: "string"
@@ -233,6 +237,8 @@ definitions:
         type: "integer"
         format: "int64"
         description: "he local offset from UTC time, in milliseconds"
+      venue:
+        $ref: "#/definitions/MeetupVenue"
       waitlist_count:
         type: "integer"
         format: "int32"
@@ -241,11 +247,23 @@ definitions:
         type: "integer"
         format: "int32"
         description: "Number of yes RSVPs including guests"
+  MeetupVenue:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+        description: "Numeric Venue ID"
+      name:
+        type: "string"
+        description: "Venue name"
   MeetupGroup:
     type: "object"
     required:
+    - "id"
     - "name"
-    - "photoUrls"
     properties:
       id:
         type: "integer"
