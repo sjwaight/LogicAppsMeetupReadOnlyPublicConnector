@@ -9,6 +9,7 @@ The following v3 API methods have been implemented:
 - [Get Group](https://www.meetup.com/meetup_api/docs/:urlname/#get)
 - [Group Events](https://www.meetup.com/meetup_api/docs/:urlname/events/#list)
 - [Get Event](https://www.meetup.com/meetup_api/docs/:urlname/events/:id/#get)
+- [Group Profile List](https://www.meetup.com/meetup_api/docs/:urlname/members/#list)
 
 If you wish to populate additional fields in the responses then make sure you read the API docs and set the correct values in the 'fields' request parameter that is available as part of the Connector implementation.
 

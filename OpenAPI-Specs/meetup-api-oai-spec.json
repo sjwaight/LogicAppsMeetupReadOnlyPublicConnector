@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "This is a simplified respresentation of Meetup's published API which you can find out more about [https://www.meetup.com/meetup_api/](https://www.meetup.com/meetup_api/). This Open API specificaton is not published or maintained by Meetup.",
-    "version": "3.0.1",
+    "description": "This is a simplified respresentation of Meetup's published API which you can find out more about https://www.meetup.com/meetup_api/. This Open API specificaton is not published or maintained by Meetup.",
+    "version": "3.0.2",
     "title": "Meetup Public Read-only API"
   },
   "host": "api.meetup.com",
@@ -46,6 +46,52 @@
           },
           "410": {
             "description": "Meetup Group has been deleted"
+          }
+        }
+      }
+    },
+    "/{meetup-group}/members": {
+      "get": {
+        "summary": "Retrieve Meetup Group Members List",
+        "operationId": "GetMeetupGroupMembersList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "meetup-group",
+            "in": "path",
+            "description": "URL name of Meetup Group. i.e. Azure-Sydney-User-Group",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Comma-delimited list of optional field names to append to the response",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Orders results according to definitions listed below. May be one of 'interesting', 'name', 'joined', or 'stepup_recommended'",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MeetupMember"
+              }
+            }
+          },
+          "404": {
+            "description": "Meetup not found"
           }
         }
       }
@@ -370,6 +416,90 @@
         }
       }
     },
+    "MeetupMember": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Numeric Member ID"
+        },
+        "bio": {
+          "type": "string",
+          "description": "Member bio. When profile does not belong to the authenticated member, this may be omitted if member opted to hide their bio from others"
+        },
+        "city": {
+          "type": "string",
+          "description": "City associated with Member's location"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country code associated with Member's location"
+        },
+        "group_profile": {
+          "$ref": "#/definitions/MeetupMemberGroupProfile"
+        },
+        "joined": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Time member joined, represented as milliseconds since the epoch"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name for the member"
+        },
+        "photo": {
+          "$ref": "#/definitions/Photo"
+        }
+      }
+    },
+    "MeetupMemberGroupProfile": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The time this member joined the Group, represented as milliseconds since the epoch"
+        },
+        "intro": {
+          "type": "string",
+          "description": "Member intro, may be omitted if member opted to hide their intro from other members"
+        },
+        "group": {
+          "$ref": "#/definitions/MeetupGroup"
+        },
+        "link": {
+          "type": "string",
+          "description": "Member profile link, provides a link to the members chapter profile"
+        },
+        "role": {
+          "type": "string",
+          "description": "The leadership role of this member within the Group, if any. Value may be one of assistant_organizer, coorganizer, event_organizer, organizer"
+        },
+        "status": {
+          "type": "string",
+          "description": "Membership status in this Group. Value may be one of active, blocked, pending, pending_payment or none"
+        },
+        "title": {
+          "type": "string",
+          "description": "Organizer defined title of member. May be absent if not defined"
+        },
+        "updated": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The last time this member edited their Group profile, represented as milliseconds since the epoch"
+        },
+        "visited": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The last time this member visited the Group, represented as milliseconds since the epoch"
+        }
+      }
+    },
     "MeetupGroup": {
       "type": "object",
       "required": [
@@ -463,7 +593,6 @@
           "description": "This represents the universal timezone identifier for the group"
         },
         "next_event": {
-          "type": "object",
           "$ref": "#/definitions/MeetupEvent"
         }
       }
