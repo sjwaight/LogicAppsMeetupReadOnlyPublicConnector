@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "description": "This is a simplified respresentation of Meetup's published API which you can find out more about https://www.meetup.com/meetup_api/. This Open API specificaton is not published or maintained by Meetup.",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "title": "Meetup Public Read-only API"
   },
   "host": "api.meetup.com",
@@ -81,6 +81,13 @@
             "description": "Orders results according to definitions listed below. May be one of 'interesting', 'name', 'joined', or 'stepup_recommended'",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number of requested members to return (unspecifed = 200 records)",
+            "required": false,
+            "type": "integer"
           }
         ],
         "responses": {
