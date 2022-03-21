@@ -1,5 +1,7 @@
 # Logic Apps Meetup Read-only Public API Connector
 
+> **Note:** As of February 1, 2022, Meetup has moved to a new GraphQL API which invalidates this implementation. This repository should be considered for informational purposes only.
+
 This repository contains the definition for an Azure Logic Apps Custom Connector for Meetup's REST API, the details of which you can find at https://www.meetup.com/meetup_api/.
 
 > Note: this is not a Meetup authored or maintained Connector. Use at your own risk!
